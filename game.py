@@ -114,7 +114,6 @@ class Board(object):
         
         return False
                 
-                
 
     def step(self):
         # get current piece
@@ -141,8 +140,15 @@ class Board(object):
             # display the board before the main while loop ends
             self.display()
 
-        # check if board is full/draw
+        # check draw if board is full and still no victory from either player
         draw = False
+        if self.turn >= 8 and not victory:
+            draw = True
+            print()
+            print(f'DRAW!')
+
+            # display the board before the main while loop ends
+            self.display()
 
         if victory or draw:
             self.terminal = True
