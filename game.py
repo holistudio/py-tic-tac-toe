@@ -23,7 +23,7 @@ class Board(object):
         print()
         return
     
-    def step(self, piece, location):
+    def place(self, piece, location):
         """
         Places a piece on the board at the specified location
         """
@@ -37,7 +37,7 @@ def main():
     print("TIC-TAC-TOE!")
     board.display()
 
-    board.step(piece=board.get_piece(),location=(1,1))
+    board.place(piece=board.get_piece(),location=(1,1))
     board.display()
 
 if __name__ == "__main__":
