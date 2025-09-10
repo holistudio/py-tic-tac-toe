@@ -1,7 +1,15 @@
 class Board(object):
     def __init__(self):
         self.board = [[" "," "," "],[" "," "," "],[" "," "," "]]
+        self.pieces = ('X', 'O')
+        self.turn = 0
 
+    def get_piece(self):
+        if self.turn % 2 == 0:
+            return self.pieces[0]
+        else:
+            return self.pieces[1]
+        
     def display(self):
         """
         Display the board to the terminal
@@ -28,7 +36,8 @@ def main():
     board = Board()
     print("TIC-TAC-TOE!")
     board.display()
-    board.step(piece='X',location=(1,1))
+
+    board.step(piece=board.get_piece(),location=(1,1))
     board.display()
 
 if __name__ == "__main__":
