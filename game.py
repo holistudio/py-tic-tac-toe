@@ -31,6 +31,20 @@ class Board(object):
         self.board[r][c] = piece
         return
     
+    def step(self):
+        # get user input
+
+        # check if user input is at a valid location
+
+        # place piece at location
+
+        # check board pattern for player victory
+
+        # check if board is full/draw
+
+        # update turn index
+        return
+    
 
 def main():
     board = Board()
