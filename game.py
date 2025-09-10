@@ -64,9 +64,8 @@ class Board(object):
                     # check if all pieces are same for this row
                     if board[i][0] == board[i][1]:
                         if board[i][1] == board[i][2]:
-                            winning_piece = board[i][0]
-                            return True, winning_piece
-            return False, None
+                            return True
+            return False
         
         def check_cols(board):
             for i in range(3):
@@ -77,9 +76,8 @@ class Board(object):
                     # check if all pieces are same for this col
                     if board[0][i] == board[1][i]:
                         if board[1][i] == board[2][i]:
-                            winning_piece = board[0][i]
-                            return True, winning_piece
-            return False, None
+                            return True
+            return False
         
         def check_diags(board):
 
@@ -91,8 +89,7 @@ class Board(object):
                 # check if all pieces are same for this col
                 if board[0][0] == board[1][1]:
                     if board[1][1] == board[2][2]:
-                        winning_piece = board[0][0]
-                        return True, winning_piece
+                        return True
             
             # top right to bottom left diagonal
             # print('Checking diagonal 2...')
@@ -103,20 +100,19 @@ class Board(object):
                 if board[2][0] == board[1][1]:
                     if board[1][1] == board[0][2]:
                         winning_piece = board[0][2]
-                        return True, winning_piece
-            return False, None
+                        return True
+            return False
         
-        row_result = check_rows(self.board)
-        if row_result[0]:
-            return row_result
-        col_result = check_cols(self.board)
-        if col_result[0]:
-            return col_result
-        diag_result = check_diags(self.board)
-        if diag_result[0]:
-            return diag_result
+        if check_rows(self.board):
+            return True
         
-        return False, None
+        if check_cols(self.board):
+            return True
+        
+        if check_diags(self.board):
+            return True
+        
+        return False
                 
                 
 
@@ -137,22 +133,32 @@ class Board(object):
         self.place(piece,loc)
 
         # check board pattern for player victory
-        print(self.check_victory())
+        victory = self.check_victory()
+        if victory:
+            print(f'WINNER PLAYER {piece}!')
 
         # check if board is full/draw
+        draw = False
+
+        if victory or draw:
+            self.terminal = True
 
         # update turn index
-        self.turn += 1
-        return
+        if not self.terminal:
+            self.turn += 1
+
+        return self.terminal
     
 
 def main():
     board = Board()
     print("TIC-TAC-TOE!")
 
-    while not board.terminal:
+    terminal = False
+
+    while not terminal:
         board.display()
-        board.step()
+        terminal = board.step()
         
 
 if __name__ == "__main__":
