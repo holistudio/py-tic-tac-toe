@@ -6,5 +6,5 @@
 - [x] Display board with Xs and Os
 - [x] Get alternating user input 
 - [x] Check if user input is a valid move
-- [ ] Check board pattern for player victory
-- [ ] Check board pattern for draw
+- [x] Check board pattern for player victory
+- [x] Check board pattern for draw
