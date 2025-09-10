@@ -3,6 +3,7 @@ class Board(object):
         self.board = [[" "," "," "],[" "," "," "],[" "," "," "]]
         self.pieces = ('X', 'O')
         self.turn = 0
+        self.terminal = False
 
     def get_piece(self):
         if self.turn % 2 == 0:
@@ -14,7 +15,9 @@ class Board(object):
         """
         Display the board to the terminal
         """
+        print()
         print("BOARD")
+        print("=====")
         for i,row in enumerate(self.board):
             row_disp = ("|").join(row)
             print(row_disp)
@@ -32,27 +35,36 @@ class Board(object):
         return
     
     def step(self):
+        # get current piece
+        piece = self.get_piece()
         # get user input
+        print(f'Player {piece}, enter row,column:')
+        input_loc = input()
 
         # check if user input is at a valid location
 
         # place piece at location
+        loc = input_loc.split(',')
+        loc = [int(x) for x in loc]
+        self.place(piece,loc)
 
         # check board pattern for player victory
 
         # check if board is full/draw
 
         # update turn index
+        self.turn += 1
         return
     
 
 def main():
     board = Board()
     print("TIC-TAC-TOE!")
-    board.display()
 
-    board.place(piece=board.get_piece(),location=(1,1))
-    board.display()
+    while not board.terminal:
+        board.display()
+        board.step()
+        
 
 if __name__ == "__main__":
     main()
