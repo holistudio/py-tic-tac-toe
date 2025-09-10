@@ -81,12 +81,40 @@ class Board(object):
                             return True, winning_piece
             return False, None
         
+        def check_diags(board):
+
+            # top left to bottom right diagonal
+            print('Checking diagonal 1...')
+            # check if none of the locations in the col are blank
+            location_blank = (board[0][0] == " ") or (board[1][1] == " ") or (board[2][2] == " ")
+            if not location_blank:
+                # check if all pieces are same for this col
+                if board[0][0] == board[1][1]:
+                    if board[1][1] == board[2][2]:
+                        winning_piece = board[0][0]
+                        return True, winning_piece
+            
+            # top right to bottom left diagonal
+            print('Checking diagonal 2...')
+            # check if none of the locations in the col are blank
+            location_blank = (board[2][0] == " ") or (board[1][1] == " ") or (board[0][2] == " ")
+            if not location_blank:
+                # check if all pieces are same for this col
+                if board[2][0] == board[1][1]:
+                    if board[1][1] == board[0][2]:
+                        winning_piece = board[0][2]
+                        return True, winning_piece
+            return False, None
+        
         row_result = check_rows(self.board)
         if row_result[0]:
             return row_result
         col_result = check_cols(self.board)
         if col_result[0]:
             return col_result
+        diag_result = check_diags(self.board)
+        if diag_result[0]:
+            return diag_result
         
         return False, None
                 
