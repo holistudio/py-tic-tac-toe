@@ -54,6 +54,27 @@ class Board(object):
         self.board[r][c] = piece
         return
     
+    def check_victory(self):
+        def check_rows(board):
+            for i in range(3):
+                # print(f"Checking row {i}...")
+                # check if none of the locations in the row are blank
+                location_blank = (board[i][0] == " ") or (board[i][1] == " ") or (board[i][2] == " ")
+                if not location_blank:
+                    # check if all pieces are same for this row
+                    if board[i][0] == board[i][1]:
+                        if board[i][1] == board[i][2]:
+                            winning_piece = board[i][0]
+                            return True, winning_piece
+            return False, None
+        
+        row_result = check_rows(self.board)
+        if row_result[0]:
+            return row_result
+        return False
+                
+                
+
     def step(self):
         # get current piece
         piece = self.get_piece()
@@ -71,6 +92,7 @@ class Board(object):
         self.place(piece,loc)
 
         # check board pattern for player victory
+        print(self.check_victory())
 
         # check if board is full/draw
 
