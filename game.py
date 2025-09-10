@@ -26,12 +26,17 @@ class Board(object):
         print()
         return
     
-    def check_valid_move(self, input_loc):
+    def parse_input(self, input_loc):
+        """
+        Convert user input string into list/row, column coordinates
+        """
         # TODO: check format of the user input is correct
-
-        # convert user input string into list/row, column coordinates
         loc = input_loc.split(',')
         loc = [int(x) for x in loc]
+        return loc
+    
+    def check_valid_move(self, loc):
+        # get row, column coordinates
         r, c = loc
 
         # if the board location is blank, the user move is valid
@@ -59,11 +64,10 @@ class Board(object):
         while not valid_move:
             print(f'Player {piece}, enter row,column:')
             input_loc = input()
-            valid_move = self.check_valid_move(input_loc)
+            loc = self.parse_input(input_loc)
+            valid_move = self.check_valid_move(loc)
 
         # place piece at location
-        loc = input_loc.split(',')
-        loc = [int(x) for x in loc]
         self.place(piece,loc)
 
         # check board pattern for player victory
