@@ -32,6 +32,7 @@ class Board(object):
             print(row_disp)
             if i < 2:
                 print("-----")
+        print("=====")
         print()
         return
     
@@ -201,6 +202,8 @@ def main():
         # game displays the board at every step
         board.display()
         terminal = board.step()
+
+    print("GAME OVER!")
         
 
 if __name__ == "__main__":
