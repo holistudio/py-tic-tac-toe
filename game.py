@@ -57,7 +57,7 @@ class Board(object):
     def check_victory(self):
         def check_rows(board):
             for i in range(3):
-                print(f"Checking row {i}...")
+                # print(f"Checking row {i}...")
                 # check if none of the locations in the row are blank
                 location_blank = (board[i][0] == " ") or (board[i][1] == " ") or (board[i][2] == " ")
                 if not location_blank:
@@ -70,7 +70,7 @@ class Board(object):
         
         def check_cols(board):
             for i in range(3):
-                print(f"Checking col {i}...")
+                # print(f"Checking col {i}...")
                 # check if none of the locations in the col are blank
                 location_blank = (board[0][i] == " ") or (board[1][i] == " ") or (board[2][i] == " ")
                 if not location_blank:
@@ -84,7 +84,7 @@ class Board(object):
         def check_diags(board):
 
             # top left to bottom right diagonal
-            print('Checking diagonal 1...')
+            # print('Checking diagonal 1...')
             # check if none of the locations in the col are blank
             location_blank = (board[0][0] == " ") or (board[1][1] == " ") or (board[2][2] == " ")
             if not location_blank:
@@ -95,7 +95,7 @@ class Board(object):
                         return True, winning_piece
             
             # top right to bottom left diagonal
-            print('Checking diagonal 2...')
+            # print('Checking diagonal 2...')
             # check if none of the locations in the col are blank
             location_blank = (board[2][0] == " ") or (board[1][1] == " ") or (board[0][2] == " ")
             if not location_blank:
