@@ -5,6 +5,6 @@
 - [x] Decide on board data structure
 - [x] Display board with Xs and Os
 - [x] Get alternating user input 
-- [ ] Check if user input is a valid move
+- [x] Check if user input is a valid move
 - [ ] Check board pattern for player victory
 - [ ] Check board pattern for draw
