@@ -26,6 +26,21 @@ class Board(object):
         print()
         return
     
+    def check_valid_move(self, input_loc):
+        # TODO: check format of the user input is correct
+
+        # convert user input string into list/row, column coordinates
+        loc = input_loc.split(',')
+        loc = [int(x) for x in loc]
+        r, c = loc
+
+        # if the board location is blank, the user move is valid
+        if self.board[r][c] == " ":
+            return True
+        else:
+            print("ERROR: Invalid location, try again.")
+            return False
+
     def place(self, piece, location):
         """
         Places a piece on the board at the specified location
@@ -37,11 +52,14 @@ class Board(object):
     def step(self):
         # get current piece
         piece = self.get_piece()
-        # get user input
-        print(f'Player {piece}, enter row,column:')
-        input_loc = input()
 
+        # get user input
         # check if user input is at a valid location
+        valid_move = False
+        while not valid_move:
+            print(f'Player {piece}, enter row,column:')
+            input_loc = input()
+            valid_move = self.check_valid_move(input_loc)
 
         # place piece at location
         loc = input_loc.split(',')
