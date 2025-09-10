@@ -135,7 +135,11 @@ class Board(object):
         # check board pattern for player victory
         victory = self.check_victory()
         if victory:
+            print()
             print(f'WINNER PLAYER {piece}!')
+            
+            # display the board before the main while loop ends
+            self.display()
 
         # check if board is full/draw
         draw = False
