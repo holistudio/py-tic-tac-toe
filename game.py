@@ -124,7 +124,7 @@ class Board(object):
         # check if user input is at a valid location
         valid_move = False
         while not valid_move:
-            print(f'Player {piece}, enter row,column:')
+            print(f'[{self.turn}] Player {piece}, enter row,column:')
             input_loc = input()
             loc = self.parse_input(input_loc)
             valid_move = self.check_valid_move(loc)
@@ -137,7 +137,7 @@ class Board(object):
         if victory:
             print()
             print(f'WINNER PLAYER {piece}!')
-            
+
             # display the board before the main while loop ends
             self.display()
 
