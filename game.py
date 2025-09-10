@@ -57,7 +57,7 @@ class Board(object):
     def check_victory(self):
         def check_rows(board):
             for i in range(3):
-                # print(f"Checking row {i}...")
+                print(f"Checking row {i}...")
                 # check if none of the locations in the row are blank
                 location_blank = (board[i][0] == " ") or (board[i][1] == " ") or (board[i][2] == " ")
                 if not location_blank:
@@ -68,10 +68,27 @@ class Board(object):
                             return True, winning_piece
             return False, None
         
+        def check_cols(board):
+            for i in range(3):
+                print(f"Checking col {i}...")
+                # check if none of the locations in the col are blank
+                location_blank = (board[0][i] == " ") or (board[1][i] == " ") or (board[2][i] == " ")
+                if not location_blank:
+                    # check if all pieces are same for this col
+                    if board[0][i] == board[1][i]:
+                        if board[1][i] == board[2][i]:
+                            winning_piece = board[0][i]
+                            return True, winning_piece
+            return False, None
+        
         row_result = check_rows(self.board)
         if row_result[0]:
             return row_result
-        return False
+        col_result = check_cols(self.board)
+        if col_result[0]:
+            return col_result
+        
+        return False, None
                 
                 
 
