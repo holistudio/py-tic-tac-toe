@@ -1,11 +1,20 @@
 class Board(object):
     def __init__(self):
+        # initial empty board
         self.board = [[" "," "," "],[" "," "," "],[" "," "," "]]
+
+        # possible board pieces
         self.pieces = ('X', 'O')
-        self.turn = 0
+
+        self.turn = 0 # turn index
+
+        # track if game is over or not
         self.terminal = False
 
     def get_piece(self):
+        """
+        Alternate between X or O piece depending on the turn index
+        """
         if self.turn % 2 == 0:
             return self.pieces[0]
         else:
@@ -30,7 +39,9 @@ class Board(object):
         """
         Convert user input string into list/row, column coordinates
         """
+
         # TODO: check format of the user input is correct
+
         loc = input_loc.split(',')
         loc = [int(x) for x in loc]
         return loc
@@ -38,6 +49,8 @@ class Board(object):
     def check_valid_move(self, loc):
         # get row, column coordinates
         r, c = loc
+
+        # TODO: check if location is within bounds of the board
 
         # if the board location is blank, the user move is valid
         if self.board[r][c] == " ":
@@ -55,7 +68,13 @@ class Board(object):
         return
     
     def check_victory(self):
+        """
+        Check connect 3 pattern in all possible variations
+        """
         def check_rows(board):
+            """
+            Check connect 3 pattern in rows
+            """
             for i in range(3):
                 # print(f"Checking row {i}...")
                 # check if none of the locations in the row are blank
@@ -68,6 +87,9 @@ class Board(object):
             return False
         
         def check_cols(board):
+            """
+            Check connect 3 pattern in columns
+            """
             for i in range(3):
                 # print(f"Checking col {i}...")
                 # check if none of the locations in the col are blank
@@ -80,7 +102,9 @@ class Board(object):
             return False
         
         def check_diags(board):
-
+            """
+            Check connect 3 pattern in diagonals
+            """
             # top left to bottom right diagonal
             # print('Checking diagonal 1...')
             # check if none of the locations in the col are blank
@@ -103,6 +127,7 @@ class Board(object):
                         return True
             return False
         
+        # immediately return True if one of the checks is met
         if check_rows(self.board):
             return True
         
@@ -116,6 +141,9 @@ class Board(object):
                 
 
     def step(self):
+        """
+        Operations to perform at every step of the game
+        """
         # get current piece
         piece = self.get_piece()
 
@@ -161,12 +189,16 @@ class Board(object):
     
 
 def main():
+    # intialize board
     board = Board()
+
     print("TIC-TAC-TOE!")
 
+    # initialize loop termination condition
     terminal = False
 
     while not terminal:
+        # game displays the board at every step
         board.display()
         terminal = board.step()
         
