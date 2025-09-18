@@ -159,15 +159,7 @@ class Board(object):
 
         # if it's the first turn, it's human
         # otherwise place AI piece
-        if self.turn % 2 != 0:
-            # # place AI piece
-            # self.place(piece,agent_location)
-            # # update turn index
-            # self.turn += 1
-            # # switch to next piece
-            # piece = self.get_piece()
-            loc = agent_location
-        else:
+        if self.turn % 2 == 0:
             # get user input
             # check if user input is at a valid location
             valid_move = False
@@ -176,6 +168,14 @@ class Board(object):
                 input_loc = input()
                 loc = self.parse_input(input_loc)
                 valid_move = self.check_valid_move(loc)
+        else:
+            # place AI piece
+            # self.place(piece,agent_location)
+            # # update turn index
+            # self.turn += 1
+            # # switch to next piece
+            # piece = self.get_piece()
+            loc = agent_location
 
         # place user piece at location
         self.place(piece,loc)
