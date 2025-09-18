@@ -1,3 +1,11 @@
+class Agent(object):
+    def __init__(self):
+        pass
+    def action(self, state):
+        # given the state of the board, pick a next location of piece
+        location = (0,0)
+        return location
+    
 class Board(object):
     def __init__(self):
         # initial empty board
@@ -7,6 +15,7 @@ class Board(object):
         self.pieces = ('X', 'O')
 
         self.turn = 0 # turn index
+        # assume turn 0, 2, .. is human player
 
         # track if game is over or not
         self.terminal = False
@@ -141,23 +150,34 @@ class Board(object):
         return False
                 
 
-    def step(self):
+    def step(self, agent_location):
         """
         Operations to perform at every step of the game
         """
         # get current piece
         piece = self.get_piece()
 
-        # get user input
-        # check if user input is at a valid location
-        valid_move = False
-        while not valid_move:
-            print(f'[{self.turn}] Player {piece}, enter row,column:')
-            input_loc = input()
-            loc = self.parse_input(input_loc)
-            valid_move = self.check_valid_move(loc)
+        # if it's the first turn, it's human
+        # otherwise place AI piece
+        if self.turn % 2 != 0:
+            # # place AI piece
+            # self.place(piece,agent_location)
+            # # update turn index
+            # self.turn += 1
+            # # switch to next piece
+            # piece = self.get_piece()
+            loc = agent_location
+        else:
+            # get user input
+            # check if user input is at a valid location
+            valid_move = False
+            while not valid_move:
+                print(f'[{self.turn}] Player {piece}, enter row,column:')
+                input_loc = input()
+                loc = self.parse_input(input_loc)
+                valid_move = self.check_valid_move(loc)
 
-        # place piece at location
+        # place user piece at location
         self.place(piece,loc)
 
         # check board pattern for player victory
@@ -186,22 +206,31 @@ class Board(object):
         if not self.terminal:
             self.turn += 1
 
-        return self.terminal
+        return self.board, self.terminal
     
 
 def main():
     # intialize board
     board = Board()
 
+    # initialize agent
+    agent = Agent()
+
     print("TIC-TAC-TOE!")
 
     # initialize loop termination condition
     terminal = False
+    location = None
 
     while not terminal:
         # game displays the board at every step
         board.display()
-        terminal = board.step()
+
+        # get board state and game terminal condition
+        state, terminal = board.step(location)
+        
+        # get the next piece location from the agent
+        location = agent.action(state)
 
     print("GAME OVER!")
         
