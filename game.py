@@ -1,9 +1,24 @@
 class Agent(object):
     def __init__(self):
+        self.move = 0
         pass
     def action(self, state):
+        print('agent.action()')
+        print(f'AI move={self.move}')
         # given the state of the board, pick a next location of piece
-        location = (0,0)
+
+        # dummy moves
+        if self.move == 0:
+            location = (0,0)
+        elif self.move == 1:
+            location = (0,1)
+        elif self.move == 2:
+            location = (0,2)
+        else:
+            print('ERROR: Dummy AI moves exceeded')
+            return ('ERROR: Dummy AI moves exceeded')
+        
+        self.move += 1
         return location
     
 class Board(object):
@@ -220,17 +235,19 @@ def main():
 
     # initialize loop termination condition
     terminal = False
-    location = None
+    agent_location = None
 
     while not terminal:
         # game displays the board at every step
         board.display()
 
         # get board state and game terminal condition
-        state, terminal = board.step(location)
+        state, terminal = board.step(agent_location)
         
-        # get the next piece location from the agent
-        location = agent.action(state)
+        # if it's the AI's turn
+        if board.turn % 2 != 0:
+            # get the next piece location from the agent
+            agent_location = agent.action(state)
 
     print("GAME OVER!")
         
