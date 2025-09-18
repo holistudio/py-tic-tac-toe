@@ -238,16 +238,18 @@ def main():
     agent_location = None
 
     while not terminal:
+        # if it's the AI's turn
+        if board.turn % 2 != 0:
+            # get the next piece location from the agent
+            agent_location = agent.action(state)
+
         # game displays the board at every step
         board.display()
 
         # get board state and game terminal condition
         state, terminal = board.step(agent_location)
         
-        # if it's the AI's turn
-        if board.turn % 2 != 0:
-            # get the next piece location from the agent
-            agent_location = agent.action(state)
+
 
     print("GAME OVER!")
         
